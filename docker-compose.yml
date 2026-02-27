@@ -2,7 +2,19 @@
 version: 3.8
 
 # 立ち上げるコンテナたちのリスト
-services: 
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      -"9090:9090"   # ホスト側：コンテナ側
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml # EC2にあるFILE:コンテナ内部のパス
+      - prometheus-data:prometheus # dockerが管理する安全な倉庫に保管 -> 永続化
+    command: 
+      - '--config.file=/etc/prometheus/prometheus.yml' #起動コマンド
+    networks:
+      - monitoring-network
 
 # コンテナ同士の通信ルール
 networks:
