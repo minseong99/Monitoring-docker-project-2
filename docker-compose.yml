@@ -1,0 +1,15 @@
+# Compose Fileの書き方のルール
+version: 3.8
+
+# 立ち上げるコンテナたちのリスト
+services: 
+
+# コンテナ同士の通信ルール
+networks:
+  monitoring-network:
+    driver: bridge
+
+# データを永続化する保管庫
+volumes:
+  prometheus-data:
+  grafana-data:
