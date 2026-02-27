@@ -1,0 +1,20 @@
+global:
+  scrape_interval: 15s      # 15秒ごとにデータを収集（pull)
+  envaluation_interval: 15s # 15秒ごとにアラートの条件を満たしているかチェック
+
+# 収集の設定リスト
+scrape_configs:
+  # Prometheus自身を監視する設定
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9000']
+
+  # EC2サーバーの監視 - Node Exporter
+  - job_name: 'node_exporter'
+    static_configs:
+      - targets: ['node-exporter:9100']
+  
+  # Dockerコンテナの監視 - cAdvisor
+  - job_name: 'cadvisor'
+    static_config:
+      - targets: ['cadvisor:8080']
