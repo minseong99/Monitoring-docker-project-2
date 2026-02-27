@@ -15,6 +15,39 @@ services:
       - '--config.file=/etc/prometheus/prometheus.yml' #起動コマンド
     networks:
       - monitoring-network
+  # EC2サーバ(host)監視
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    restart: unless-stopped
+    volumes:
+      # EC2のシステム情報をコンテナの中から「覗き見」するための設定
+      - /proc:/host/proc:ro # host(EC2)の directory をコンテナの中の"/host/proc"にマウントする、roは read-only
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command: 
+      - '--path.procfs=/host/proc'
+      - '--path.procfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    networks:
+      - monitoring-network
+  # Dockerコンテナたちの監視 - 他のコンテナがどれだけリソースを使っているかを監視する
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    restart: unless-stopped
+    volumes:
+      # Dockerやコンテナの情報を「覗き見」するための設定
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker.ro
+      - /dev/disk/:/dev/disk:ro
+    networks:
+      - monitoring-network
+    
+
 
 # コンテナ同士の通信ルール
 networks:
