@@ -7,7 +7,7 @@ services:
     image: prom/prometheus:latest
     container_name: prometheus
     ports:
-      -"9090:9090"   # ホスト側：コンテナ側
+      - "9090:9090"   # ホスト側：コンテナ側
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml # EC2にあるFILE:コンテナ内部のパス
       - prometheus-data:prometheus # dockerが管理する安全な倉庫に保管 -> 永続化
@@ -46,6 +46,27 @@ services:
       - /dev/disk/:/dev/disk:ro
     networks:
       - monitoring-network
+  # データを可視化するツール
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - ["3000:3000"]            # host:container
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
+    depends_on:
+      - prometheus
+    volumes:
+      # データの永続化(Dashboard)
+      - grafana-data:/var/lib/grafana
+      # 初期設定の自動化(Provisioning)
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+    networks:
+      - monitoring-network
+      
     
 
 

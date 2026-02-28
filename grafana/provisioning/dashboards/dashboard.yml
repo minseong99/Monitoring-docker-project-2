@@ -1,0 +1,11 @@
+apiVersion: 1
+
+providers:
+  - name: 'Default Dashboards' 
+    orgId: 1                      # defaultの組織ID
+    folder: ''                    # Grafana上のどのfileに保存するか（空欄：general）
+    type: file                    # ローカルfileから読み込む
+    disableDeletion: false        # 画面からの削除不許可
+    editable: false               # 画面からの編集不許可
+    options:
+      path: /etc/grafana/provisioning/dashboards   # コンテナの内部で設計図（JSON）の位置

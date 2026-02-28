@@ -1,0 +1,9 @@
+apiVersion: 1
+
+datasources:
+  - name: Prometheus              # grafana上で表示される名前
+    type: prometheus              # データソースの種類
+    access: proxy                 # grafanaサーバでアクセスする意味
+    url: http://prometheus:9000   # 接続先のURL 
+    isDefault: true               # このことをデータソースの基本にする設定
+    editable: false               # 画面からの編集を禁止する設定
