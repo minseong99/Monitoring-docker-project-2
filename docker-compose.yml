@@ -1,5 +1,5 @@
 # Compose Fileの書き方のルール
-version: 3.8
+# version: "3.8"
 
 # 立ち上げるコンテナたちのリスト
 services:
