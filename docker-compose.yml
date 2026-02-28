@@ -10,7 +10,7 @@ services:
       - "9090:9090"   # ホスト側：コンテナ側
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml # EC2にあるFILE:コンテナ内部のパス
-      - prometheus-data:prometheus # dockerが管理する安全な倉庫に保管 -> 永続化
+      - prometheus-data:/prometheus # dockerが管理する安全な倉庫に保管 -> 永続化
     command: 
       - '--config.file=/etc/prometheus/prometheus.yml' #起動コマンド
     networks:
