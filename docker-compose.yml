@@ -50,8 +50,8 @@ services:
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
-    ports:
-      - "3000:3000"           # host:container
+    # ports:
+    #   - "3000:3000"           # host:container
     restart: unless-stopped
     environment:
       - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER}
@@ -64,6 +64,18 @@ services:
       # 初期設定の自動化(Provisioning)
       - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
       - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+    networks:
+      - monitoring-network
+  # Nginx sever
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - grafana
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
     networks:
       - monitoring-network
       
