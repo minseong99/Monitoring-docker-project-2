@@ -56,9 +56,9 @@ services:
     environment:
       - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER}
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
-      # - GF_SERVER_DOMAIN=prod-alb-79683208.ap-northeast-1.elb.amazonaws.com
-      # - GF_SERVER_ROOT_URL=http://prod-alb-79683208.ap-northeast-1.elb.amazonaws.com/
-      # - GF_SECURITY_COOKIE_SECURE=false
+      - GF_SERVER_DOMAIN=prod-alb-79683208.ap-northeast-1.elb.amazonaws.com
+      - GF_SERVER_ROOT_URL=http://prod-alb-79683208.ap-northeast-1.elb.amazonaws.com/
+      - GF_SECURITY_COOKIE_SECURE=false
     depends_on:
       - prometheus
     volumes:
