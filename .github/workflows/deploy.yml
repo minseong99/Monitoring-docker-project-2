@@ -51,7 +51,7 @@ jobs:
             "   echo \"初期デプロイ：リポジトリをクローンします\"",
             "   git clone \"https://github.com/minseong99/Monitoring-docker-project-2.git\"",
             "fi",
-            "cd Monitoring-docker-project-2"
+            "cd Monitoring-docker-project-2",
             "echo \"最新コードを取得します\"",
             "git pull origin main",
             "echo \"環境変数を設定します\"",
