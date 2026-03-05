@@ -57,6 +57,7 @@ jobs:
             "echo \"環境変数を設定します\"",
             "echo \"GRAFANA_ADMIN_USER=admin\" > .env",
             "echo \"GRAFANA_ADMIN_PASSWORD=${{ secrets.GRAFANA_ADMIN_PASSWORD }}\" >> .env",
+            "docker compose down -v"
             "docker compose up -d"
           ]'
 
