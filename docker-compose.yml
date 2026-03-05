@@ -63,7 +63,7 @@ services:
       - prometheus
     volumes:
       # データの永続化(Dashboard)
-      - grafana-data:/var/lib/grafana
+      - grafana-storage:/var/lib/grafana
       # 初期設定の自動化(Provisioning)
       - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
       - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
@@ -93,4 +93,4 @@ networks:
 # データを永続化する保管庫
 volumes:
   prometheus-data:
-  grafana-data:
+  grafana-storage:
