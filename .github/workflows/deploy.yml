@@ -68,5 +68,5 @@ jobs:
             --query "Command.CommandId" \
             --output text)
 
-          echo "SSM Command ID: $COMMAND_ID "
+          echo "SSM Command ID: $COMMAND_ID"
           echo "デプロイコマンドを送信しました！"
