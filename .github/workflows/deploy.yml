@@ -55,6 +55,7 @@ jobs:
             "echo \"最新コードを取得します\"",
             "git fetch origin",
             "git reset --hard origin/main",
+            "git pull origin main",
             "echo \"環境変数を設定します\"",
             "echo \"GRAFANA_ADMIN_USER=admin\" > .env",
             "echo \"GRAFANA_ADMIN_PASSWORD=${{ secrets.GRAFANA_ADMIN_PASSWORD }}\" >> .env",
